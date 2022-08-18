@@ -1,3 +1,8 @@
+# skyepub inc 
+# 18.aug 2022
+# skytree created
+
+
 # preinstall python 
 python 3.10.6 installed by choco
 pip 22.2.2 installed
@@ -16,8 +21,7 @@ python skyauto.py
 
 
 
-# REST API
-# restapis in flask app
+# skyauto flask app REST APIs 
 
 /system
     returns system information including cpu,memory or etc. 
@@ -94,9 +98,4 @@ python skyauto.py
                 "success": "true"
             }
 
-# when postman is used for test, please import SkyAuto.postman_collection.json file in postman application. 
-    
-
-
-
-
+# when postman is used for test, please import SkyAuto.postman_collection.json file in postman application.    
