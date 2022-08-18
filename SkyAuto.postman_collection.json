@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "c6a2c63a-bcdb-4e2b-bb3c-a9fa2f6bb228",
+		"name": "SkyAuto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21469571"
+	},
+	"item": [
+		{
+			"name": "autoload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\":\"https://meet.uplus.co.kr/login?roomNo=3945\",\r\n    \"userNick\":\"User1\",\r\n    \"password\":\"1234\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/autoload",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"autoload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "system",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/system",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"system"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autoload",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/autoload?url=https://meet.uplus.co.kr/login?roomNo=3945&usernick=User&password=1234",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"autoload"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://meet.uplus.co.kr/login?roomNo=3945"
+						},
+						{
+							"key": "usernick",
+							"value": "User"
+						},
+						{
+							"key": "password",
+							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
