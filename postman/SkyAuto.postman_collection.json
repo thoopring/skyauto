@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"url\":\"https://meet.uplus.co.kr/login?roomNo=3945\",\r\n    \"userNick\":\"User1\",\r\n    \"password\":\"1234\"\r\n}\r\n",
+					"raw": "{\r\n    \"url\":\"https://meet.uplus.co.kr/login?roomNo=3972\",\r\n    \"userNick\":\"User1\",\r\n    \"password\":\"1234\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,7 +21,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/autoload",
+					"raw": "http://127.0.0.1:5000/autojoin",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -31,7 +31,7 @@
 					],
 					"port": "5000",
 					"path": [
-						"autoload"
+						"autojoin"
 					]
 				}
 			},
@@ -60,7 +60,7 @@
 			"response": []
 		},
 		{
-			"name": "autoload",
+			"name": "autojoin",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -89,6 +89,46 @@
 						{
 							"key": "password",
 							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autojoins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"autojoins"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://meet.uplus.co.kr/login?roomNo=3962"
+						},
+						{
+							"key": "usernick",
+							"value": "User"
+						},
+						{
+							"key": "password",
+							"value": "1234"
+						},
+						{
+							"key": "number",
+							"value": "5"
 						}
 					]
 				}

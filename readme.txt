@@ -8,11 +8,11 @@
     32gb ram 
 
 # preinstall software
-    python 3.10.6 installed by choco
-    pip 22.2.2 installed
-    pip install selenium==3.141
-    pip install flask
-    pip install psutil
+    * python 3.10.6 installed by choco
+    * pip (22.2.2 installed)
+    $ pip install selenium==3.141
+    $ pip install flask
+    $ pip install psutil
 
 # copy y4m files to C:\Temp folder from the links below
     https://www.dropbox.com/s/nxoh0h55o7wd6a9/city.y4m?dl=1
@@ -20,8 +20,8 @@
     https://www.dropbox.com/s/ndbmtqakyaz46eb/students.y4m?dl=1
     https://www.dropbox.com/s/b482w03862mklsd/waterfall.y4m?dl=1
 
-# run skyauto flask app
-    python skyauto.py 
+# run skyauto flask app 
+    $ python skyauto.py 
 
 
 
@@ -50,7 +50,7 @@
         "success": "true"
     }
 
-/autoload
+/autojoin
     lauches chrome and automate joining process, returns sucess or fail when it is finished or terminated. 
     it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
     method get
@@ -77,7 +77,7 @@
             }
 
 
-/autoload 
+/autojoin 
     lauches chrome and automate joining process, returns sucess or fail when it is finished or terminated. 
     it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
     method post
@@ -101,6 +101,40 @@
                 "step": "4",
                 "success": "true"
             }
+
+/autojoins
+    lauches chrome and automate joining process number of times, returns success or fail when all joings are finished or terminated. 
+    it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
+    method get
+    params
+        url      : the url of video conference server
+        usernick : user nickname
+        password : room secret password
+        number   : number of joins
+    example
+        http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5
+
+    result
+        success:true is returned
+        {
+            "goal": 10,
+            "limit": 10,
+            "success": "true",
+            "sucessCount": 10,
+            "timeElapsed": 99.40823459625244,
+            "timeoutLimit": 200
+        }
+
+        success:false is returned when skyauto failed to make joins to the number requested in time. 
+        timeoutLimit = number * 20(seconds)
+        {
+            "goal": 10,
+            "limit": 10,
+            "success": "false",
+            "sucessCount": 8,
+            "timeElapsed": 200.40823459625244,
+            "timeoutLimit": 200
+        }
 
 # when postman(rest api test tool) is used for test, please import SkyAuto.postman_collection.json file in postman application.  
     postman download

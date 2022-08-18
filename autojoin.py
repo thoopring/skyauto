@@ -16,8 +16,8 @@ class AutoJoin:
         self.password = password
         self.driver = None
 
+    # 접속 함수 
     def join(self):
-
         options = Options()
         options.add_argument("--disable-infobars")
         options.add_argument("start-maximized")
@@ -101,6 +101,21 @@ class AutoJoin:
             return {"success":"false","step":"3"}
 
         return {"success":"true","step":"4"}
+
+
+    # 접속과 유사한 상황을 시뮬레이션 - 사용하지 말 것 
+    def joinSimul(self):
+        # 시간을 임의로 지체시킨다. 
+        time = random.randrange(1,2)
+        sleep(time)        
+        # 결과를 임의로 내보낸다. 
+        step = random.randrange(1,5)
+        result = {}
+        if step>=1 and step<=3:
+            result = {"success":"false","Step":step}
+        elif step==4:
+            result = {"success":"true","Step":step}
+        return result
 
         
     def isAlertPresent(self):
