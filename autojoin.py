@@ -56,9 +56,9 @@ class AutoJoin:
 
         # self.driver.implicitly_wait(3)
         # 해당 주소가 로딩되어서 room_id를 id로 가진 element가 발견될때까지 대기한다. 
-        # 최대 10초 대기 
+        # 최대 120초 대기 
         try:
-            isLoaded = WebDriverWait(self.driver,10).until(
+            isLoaded = WebDriverWait(self.driver,120).until(
                 EC.presence_of_all_elements_located((By.ID,'room_id'))
             )
         except:
@@ -79,7 +79,7 @@ class AutoJoin:
         # self.driver.implicitly_wait(time_to_wait=20)        
         # 기기설정 화면이 나올때까지 대기한다. 
         try:
-            isLoaded = WebDriverWait(self.driver,20).until(
+            isLoaded = WebDriverWait(self.driver,120).until(
                 EC.presence_of_all_elements_located((By.ID,'fileDown'))
             )
         except:
