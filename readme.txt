@@ -2,22 +2,26 @@
 # 18.aug 2022
 # skytree created
 
+# system used in test
+    windows 11
+    amd64 ryzen7 5800
+    32gb ram 
 
-# preinstall python 
-python 3.10.6 installed by choco
-pip 22.2.2 installed
-pip install selenium==3.141
-pip install flask
-pip install psutil
+# preinstall software
+    python 3.10.6 installed by choco
+    pip 22.2.2 installed
+    pip install selenium==3.141
+    pip install flask
+    pip install psutil
 
 # copy y4m files to C:\Temp folder from the links below
-https://www.dropbox.com/s/nxoh0h55o7wd6a9/city.y4m?dl=1
-https://www.dropbox.com/s/q2e1lxqed966bjo/stockholm.y4m?dl=1
-https://www.dropbox.com/s/ndbmtqakyaz46eb/students.y4m?dl=1
-https://www.dropbox.com/s/b482w03862mklsd/waterfall.y4m?dl=1
+    https://www.dropbox.com/s/nxoh0h55o7wd6a9/city.y4m?dl=1
+    https://www.dropbox.com/s/q2e1lxqed966bjo/stockholm.y4m?dl=1
+    https://www.dropbox.com/s/ndbmtqakyaz46eb/students.y4m?dl=1
+    https://www.dropbox.com/s/b482w03862mklsd/waterfall.y4m?dl=1
 
 # run skyauto flask app
-python skyauto.py 
+    python skyauto.py 
 
 
 
