@@ -102,4 +102,6 @@
                 "success": "true"
             }
 
-# when postman is used for test, please import SkyAuto.postman_collection.json file in postman application.    
+# when postman(rest api test tool) is used for test, please import SkyAuto.postman_collection.json file in postman application.  
+    postman download
+    https://www.postman.com/downloads/  
