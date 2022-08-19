@@ -29,7 +29,7 @@ class AutoJoin:
         options.add_argument('window-size=720x480')
         options.add_experimental_option("detach", True) 
         
-        ri = random.randrange(0,3)
+        ri = random.randrange(0,4)
         if ri==0:
             options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\city.y4m")
         elif ri==1:
