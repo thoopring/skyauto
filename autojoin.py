@@ -19,8 +19,8 @@ class AutoJoin:
     # 접속 함수 
     def join(self):
         options = Options()
-        options.add_argument("--disable-infobars")
-        options.add_argument("start-maximized")
+        # options.add_argument("--disable-infobars")
+        # options.add_argument("start-maximized")
         options.add_argument("--disable-extensions")
         options.add_argument("--allow-file-access-from-files")
         options.add_argument("--use-fake-ui-for-media-stream")
@@ -37,7 +37,7 @@ class AutoJoin:
             options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\students.y4m")
         elif ri==3:
             options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\waterfall.y4m")        
-        options.add_argument("--disable-infobars")
+        # options.add_argument("--disable-infobars")
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         
         # Pass the argument 1 to allow and 2 to block
