@@ -70,7 +70,8 @@ def processAutoLoadsGetParameters():
     targetURL = request.args.get("url")
     userNick = request.args.get("usernick")
     password = request.args.get("password")
-    number = int(request.args.get("number"))
+    numberGoal = int(request.args.get("number"))
+    number = numberGoal
 
     print(targetURL+" "+userNick+" "+password)
 
@@ -99,9 +100,9 @@ def processAutoLoadsGetParameters():
 
     # 성공한 갯수 = 요청한 갯수와 일치하면 성공 보고 
     if countSuccess == number:
-        retData = {"success":"true","goal":number,"sucessCount":countSuccess,"limit":limit,"timeElapsed":elapsed,"timeoutLimit":timeoutLimit}    
+        retData = {"success":"true","goal":numberGoal,"sucessCount":countSuccess,"limit":limit,"timeElapsed":elapsed,"timeoutLimit":timeoutLimit}    
     else:
-        retData = {"success":"false","goal":number,"sucessCount":countSuccess,"limit":limit,"timeElapsed":elapsed,"timeoutLimit":timeoutLimit}    
+        retData = {"success":"false","goal":numberGoal,"sucessCount":countSuccess,"limit":limit,"timeElapsed":elapsed,"timeoutLimit":timeoutLimit}    
     response = make_response(jsonify(retData),201)
     return response
     
