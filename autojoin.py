@@ -89,41 +89,28 @@ class AutoJoin:
         
         # 기기설정에서 startButton을 검색한다. 팝업등으로 만약 못찾을 경우 잠시 후 다시 시도한다. 
         # 최종적으로도 못찾을 경우 3단계 정지 정보를 내보낸다. 
-        # self.driver.implicitly_wait(5)
-        # startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
-        # startButton.click() 
-        # self.driver.implicitly_wait(5)
-        # startButton.click() 
-        # self.driver.implicitly_wait(5)
         try:
-            startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
-            startButton.click() 
-            self.driver.implicitly_wait(5)
-            startButton.click() 
+            for i in range(0,5):
+                startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
+                startButton.click() 
+                self.driver.implicitly_wait(10)
         except Exception as e:
-            self.driver.quit()
-            return {"success":"false","step":"3"}  
+            print(e)
+
+
+        # try:
+        #     startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
+        #     startButton.click() 
+        #     self.driver.implicitly_wait(10)
+        #     startButton.click() 
+        # except Exception as e:
+        #     self.driver.quit()
+        #     return {"success":"false","step":"3"}  
 
 
         return {"success":"true","step":"4"}
 
 
-
-        try:
-            startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
-            startButton.click() 
-            # self.driver.implicitly_wait(10)
-            # startButton.click() 
-        except ElementClickInterceptedException as e:
-            self.driver.implicitly_wait(10)
-            startButton.click()
-        except Exception as e:
-            traceback.print_exception(e)
-            self.driver.quit()
-            return {"success":"false","step":"3"}  
-        else:
-            return {"success":"true","step":"4"}
-            
 
     # 접속과 유사한 상황을 시뮬레이션 - 사용하지 말 것 
     def joinSimul(self):
