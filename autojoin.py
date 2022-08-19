@@ -91,10 +91,8 @@ class AutoJoin:
         # 최종적으로도 못찾을 경우 3단계 정지 정보를 내보낸다. 
         startRet = self.startButtonClick()
         if startRet == False:
+            print("startButtonClick detects error in 1st trial")
             startRet = self.startButtonClick()
-
-        # startButton Click once more when the first trial failed.
-        if startRet == False:
             self.driver.quit()
             return {"success":"false","step":"3"}            
 
@@ -109,8 +107,9 @@ class AutoJoin:
         except ElementClickInterceptedException as e:
             print("ElementClickInterceptedException")
             return False
-        
-        return True
+        finally:
+            return True      
+
 
 
 
