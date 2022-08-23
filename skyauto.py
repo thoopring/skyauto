@@ -112,7 +112,7 @@ def killJoin():
 
 
 @app.route('/killalljoins',methods=['get'])
-def killJoins():
+def killAllJoins():
     for join in joins:        
         join.driver.quit()
     joins.clear()
