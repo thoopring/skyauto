@@ -1,5 +1,5 @@
 # skyepub inc 
-# 18.aug 2022
+# 18-25.aug 2022
 # skytree created
 
 # system used in test
@@ -144,7 +144,7 @@
 
 
 
-
+*** NEW API ***
 /killlastjoin
     termiates the last join and release it. 
 
@@ -152,6 +152,7 @@
         "success": "true"
     }
 
+*** NEW API ***
 /killlastjoin
     params
         usernick    : the usernick of join to terminate
@@ -172,6 +173,7 @@
             "usernick": "User1"
         }
 
+*** NEW API ***
 /killalljoins
     kill all joins 
 
@@ -182,6 +184,25 @@
         {
             "success": "true"
         }
+
+*** NEW API ***
+/listjoins
+    returns the list of joins in json array. 
+    example
+        http://10.10.10.190:5000/listjoins
+
+    result
+        [
+            {
+                "userNick": "User1",
+                "uniqueID": "62fdaec7-94c1-4dc0-a42b-227d551fb35b"
+            },
+            {
+                "userNick": "User2",
+                "uniqueID": "76edafc7-88c1-5fcf-d49b-3334551ef4ff"
+            }
+
+        ]
 
 
 # when postman(rest api test tool) is used for test, please import SkyAuto.postman_collection.json file in postman application.  
