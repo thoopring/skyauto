@@ -12,13 +12,20 @@
     $ pip install selenium==4.0.0.
     $ pip install flask
     $ pip install psutil
-    $ pip install webdriver_manager
+    $ pip install webdriver_manager (unzip it and copy ChromeDriver file onto [appPath])
 
-# copy y4m files to C:\Temp folder from the links below
+# copy y4m files to [appPath]/y4m folder from the links below
+    video y4m files
     https://www.dropbox.com/s/nxoh0h55o7wd6a9/city.y4m?dl=1
     https://www.dropbox.com/s/q2e1lxqed966bjo/stockholm.y4m?dl=1
     https://www.dropbox.com/s/ndbmtqakyaz46eb/students.y4m?dl=1
     https://www.dropbox.com/s/b482w03862mklsd/waterfall.y4m?dl=1
+    audio wav files
+    https://www.dropbox.com/s/fqukjal60c7i124/BabyElephantWalk60.wav?dl=1
+    https://www.dropbox.com/s/yd9xec6kg8ltda2/PinkPanther60.wav?dl=1
+    https://www.dropbox.com/s/gcsiwj56pr3b3xq/CantinaBand60.wav?dl=1
+    https://www.dropbox.com/s/c39o4991wbs63k4/StarWars60.wav?dl=1
+
 
 # run skyauto flask app 
     $ python skyauto.py 
@@ -134,6 +141,48 @@
             "timeElapsed": 200.40823459625244,
             "timeoutLimit": 200
         }
+
+
+
+
+/killlastjoin
+    termiates the last join and release it. 
+
+    {
+        "success": "true"
+    }
+
+/killlastjoin
+    params
+        usernick    : the usernick of join to terminate
+        uniqueid    : the unique id of join to kill 
+
+    example 
+        http://10.10.10.190:5000/killjoin?uniqueid=62fdaec7-94c1-4dc0-a42b-227d551fb35b
+    
+    Result 
+        {
+            "success": "true",
+            "uniqueID": "62fdaec7-94c1-4dc0-a42b-227d551fb35b"
+        }
+        or 
+
+        {
+            "success": "true",
+            "usernick": "User1"
+        }
+
+/killalljoins
+    kill all joins 
+
+    example
+        http://10.10.10.190:5000/killalljoins
+
+    result  
+        {
+            "success": "true"
+        }
+
 
 # when postman(rest api test tool) is used for test, please import SkyAuto.postman_collection.json file in postman application.  
     postman download

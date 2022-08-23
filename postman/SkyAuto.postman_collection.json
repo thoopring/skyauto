@@ -43,13 +43,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/system",
+					"raw": "http://10.10.10.190:5000/system",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"10",
+						"10",
+						"10",
+						"190"
 					],
 					"port": "5000",
 					"path": [
@@ -65,22 +65,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/autoload?url=https://meet.uplus.co.kr/login?roomNo=3945&usernick=User&password=1234",
+					"raw": "http://10.10.10.190:5000/autojoin?url=https://meet-stg.uplus.co.kr/login?roomNo=19342&usernick=User&password=1234",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"10",
+						"10",
+						"10",
+						"190"
 					],
 					"port": "5000",
 					"path": [
-						"autoload"
+						"autojoin"
 					],
 					"query": [
 						{
 							"key": "url",
-							"value": "https://meet.uplus.co.kr/login?roomNo=3945"
+							"value": "https://meet-stg.uplus.co.kr/login?roomNo=19342"
 						},
 						{
 							"key": "usernick",
@@ -101,13 +101,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5",
+					"raw": "http://10.10.10.190:5000/autojoins?url=https://meet-stg.uplus.co.kr/login?roomNo=19342&usernick=User&password=1234&number=5",
 					"protocol": "http",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"10",
+						"10",
+						"10",
+						"190"
 					],
 					"port": "5000",
 					"path": [
@@ -116,7 +116,7 @@
 					"query": [
 						{
 							"key": "url",
-							"value": "https://meet.uplus.co.kr/login?roomNo=3962"
+							"value": "https://meet-stg.uplus.co.kr/login?roomNo=19342"
 						},
 						{
 							"key": "usernick",
@@ -130,6 +130,128 @@
 							"key": "number",
 							"value": "5"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kill All Joins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.10.190:5000/killalljoins",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"10",
+						"190"
+					],
+					"port": "5000",
+					"path": [
+						"killalljoins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kill Join By UniqueID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.10.190:5000/killjoin?uniqueID",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"10",
+						"190"
+					],
+					"port": "5000",
+					"path": [
+						"killjoin"
+					],
+					"query": [
+						{
+							"key": "uniqueID",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kill Join By UserNick",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.10.190:5000/killjoin?usernick=User",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"10",
+						"190"
+					],
+					"port": "5000",
+					"path": [
+						"killjoin"
+					],
+					"query": [
+						{
+							"key": "usernick",
+							"value": "User"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list Joins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.10.190:5000/listjoins",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"10",
+						"190"
+					],
+					"port": "5000",
+					"path": [
+						"listjoins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kill Last Join",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.10.10.190:5000/killlastjoin",
+					"protocol": "http",
+					"host": [
+						"10",
+						"10",
+						"10",
+						"190"
+					],
+					"port": "5000",
+					"path": [
+						"killlastjoin"
 					]
 				}
 			},
