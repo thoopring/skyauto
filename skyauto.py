@@ -7,12 +7,14 @@ import psutil
 import os 
 import platform
 import time
+from flask import Response
 
 app = Flask(__name__)
+joins = []
 
 @app.route('/')
 def home():
-	return 'SkyAuto Version 1.1'
+	return 'SkyAuto Version 1.2'
 
 @app.route('/system',methods=['get'])
 def processSystem():
@@ -49,6 +51,8 @@ def processAutoLoadPost():
     auto = AutoJoin(targetURL,userNick,password)
     retData = auto.join()    
     response = make_response(jsonify(retData),201)
+    if retData['success'] == 'true':
+        joins.append(auto)
     return response
 
 # 여러 번의 join을 요청하는 경우 
@@ -62,7 +66,68 @@ def processAutoLoadGetParameters():
     auto = AutoJoin(targetURL,userNick,password)
     retData = auto.join()    
     response = make_response(jsonify(retData),201)
+    if retData['success'] == 'true':
+        joins.append(auto)
     return response
+
+@app.route('/listjoins',methods=['get'])
+def listJoins():
+    results = []
+
+    for join in joins:
+        jd = {
+            'userNick' : join.userNick,
+            'uniqueID' : join.uniqueID
+        }
+        results.append(jd)
+    
+    response = Response(json.dumps(results),  mimetype='application/json')
+    return response
+
+@app.route('/killjoin',methods=['get'])
+def killJoin():
+    userNick = request.args.get("usernick")
+    uniqueID = request.args.get("uniqueid")    
+    targetIndex = -1
+    if userNick!=None:
+        for join in joins:
+            if join.userNick == userNick:
+                join.driver.quit()
+                joins.remove(join)                
+                retData = {"success":"true","userNick":join.userNick}
+                response = make_response(jsonify(retData),201)
+                return response
+    elif uniqueID!=None:
+        for join in joins:
+            if join.uniqueID == uniqueID:                
+                join.driver.quit()
+                joins.remove(join)
+                retData = {"success":"true","uniqueID":join.uniqueID}
+                response = make_response(jsonify(retData),201)
+                return response
+
+    retData = {"success":"false"}
+    response = make_response(jsonify(retData),201)
+    return response
+
+
+@app.route('/killalljoins',methods=['get'])
+def killJoins():
+    for join in joins:        
+        join.driver.quit()
+    joins.clear()
+    retData = {"success":"true"}
+    response = make_response(jsonify(retData),201)
+    return response
+
+@app.route('/killlastjoin',methods=['get'])
+def killLastJoin():
+    join = joins.pop()
+    join.driver.quit()
+    retData = {"success":"true"}
+    response = make_response(jsonify(retData),201)
+    return response
+    
 
 # 여러 번의 join을 요청하는 경우 
 @app.route('/autojoins',methods=['get'])
@@ -90,7 +155,8 @@ def processAutoLoadsGetParameters():
         auto = AutoJoin(targetURL,userNick,password)
         # ret = auto.joinSimul()
         ret = auto.join()
-        if ret['success'] == 'true':
+        if ret['success'] == 'true':            
+            joins.append(auto)
             countSuccess = countSuccess + 1
         # 현재 시점 마킹
         current = time.time()

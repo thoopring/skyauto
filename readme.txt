@@ -3,16 +3,16 @@
 # skytree created
 
 # system used in test
-    windows 11
-    amd64 ryzen7 5800
-    32gb ram 
+    ubuntu 20.04.1 (LST)
+    Virtual Machine on Proxmox (Octa Cores, 8Giga RAM)
 
 # preinstall software
     * python 3.10.6 installed by choco
     * pip (22.2.2 installed)
-    $ pip install selenium==3.141
+    $ pip install selenium==4.0.0.
     $ pip install flask
     $ pip install psutil
+    $ pip install webdriver_manager
 
 # copy y4m files to C:\Temp folder from the links below
     https://www.dropbox.com/s/nxoh0h55o7wd6a9/city.y4m?dl=1
@@ -22,8 +22,7 @@
 
 # run skyauto flask app 
     $ python skyauto.py 
-
-
+    
 
 # skyauto flask app REST APIs 
 

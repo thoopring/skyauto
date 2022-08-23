@@ -10,16 +10,23 @@ from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.chrome.options import Options
 import random
 import traceback
+import os
+import uuid
+
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 class AutoJoin:
     def __init__(self,url,userNick,password):
         self.targetURL = url
         self.userNick = userNick
         self.password = password
+        self.uniqueID = str(uuid.uuid4())
         self.driver = None
 
     # 접속 함수 
     def join(self):
+        print("autojoin #0")
         options = Options()
         options.add_argument("--disable-infobars")
         options.add_argument("--disable-extensions")
@@ -27,17 +34,40 @@ class AutoJoin:
         options.add_argument("--use-fake-ui-for-media-stream")
         options.add_argument("--use-fake-device-for-media-stream")
         options.add_argument('window-size=720x480')
-        options.add_experimental_option("detach", True) 
+        # options.add_experimental_option("detach", True) 
+
+        #TODO: FixMe
+        # headless 인 경우 참여하고 있는 사용에 대해서 종료할 수 있는 방법이 없음 (주의!!)
+        # AWS Vm 에서는 반드시 headless 만 사용 가능함
+        #  --> Webdriver 실행 후 리소스 정리(driver.quit)를 보장해야 함
+        options.add_argument('--headless')
+        # options.add_argument('--no-sandbox')
+
+        print("autojoin #1")
+        # Check y4m file path
+        script_path = os.path.dirname(os.path.abspath(__file__))
+        y4m_path = os.path.join(script_path, 'y4m')
+        # print('Video Data Path:', y4m_path)
+        if not os.path.exists(y4m_path):
+            print('Error: copy y4m file to [your dir]/webrtc-loadtest/y4m')
+            return
+        else:
+            print(f"y4m_path={y4m_path}")
         
-        ri = random.randrange(0,4)
-        if ri==0:
-            options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\city.y4m")
-        elif ri==1:
-            options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\stockholm.y4m")
-        elif ri==2:
-            options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\students.y4m")
-        elif ri==3:
-            options.add_argument(r"--use-file-for-fake-video-capture=C:\Temp\waterfall.y4m")        
+        ri = random.randrange(0, 4)
+        if ri == 0:
+            options.add_argument('--use-file-for-fake-video-capture=%s' % (os.path.join(y4m_path, 'city.y4m')))
+            options.add_argument('--use-file-for-fake-audio-capture=%s' % (os.path.join(y4m_path, 'CantinaBand60.wav')))
+        elif ri == 1:
+            options.add_argument('--use-file-for-fake-video-capture=%s' % (os.path.join(y4m_path, 'stockholm.y4m')))
+            options.add_argument('--use-file-for-fake-audio-capture=%s' % (os.path.join(y4m_path, 'PinkPanther60.wav')))
+        elif ri == 2:
+            options.add_argument('--use-file-for-fake-video-capture=%s' % (os.path.join(y4m_path, 'students.y4m')))
+            options.add_argument('--use-file-for-fake-audio-capture=%s' % (os.path.join(y4m_path, 'StarWars60.wav')))
+        elif ri == 3:
+            options.add_argument('--use-file-for-fake-video-capture=%s' % (os.path.join(y4m_path, 'students.y4m')))
+            options.add_argument('--use-file-for-fake-audio-capture=%s' % (os.path.join(y4m_path, 'BabyElephantWalk60.wav')))
+            
         options.add_experimental_option("excludeSwitches", ["enable-logging"])
         
         # Pass the argument 1 to allow and 2 to block
@@ -47,7 +77,19 @@ class AutoJoin:
             "profile.default_content_setting_values.geolocation": 1, 
             "profile.default_content_setting_values.notifications": 1 
         })
-        self.driver = webdriver.Chrome(chrome_options=options, executable_path=r'C:\Program Files\ChromeDriver\chromedriver.exe')
+
+        print("autojoin #3")
+
+        # Selenium 4.0 - load webdriver
+        # self.driver = webdriver.Chrome(chrome_options=options, executable_path=r'C:\Program Files\ChromeDriver\chromedriver.exe')
+        try:
+            self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        except Exception as e:
+            print(e)
+            return
+
+        print("autojoin #4")
+        # self.driver = webdriver.Chrome(chrome_options=options, executable_path=r'C:\Program Files\ChromeDriver\chromedriver.exe')
 
         # 해당 주소로 접속 시도 (새로운 브라우저/새로운 탭에서)
         
@@ -57,6 +99,7 @@ class AutoJoin:
         # self.driver.implicitly_wait(3)
         # 해당 주소가 로딩되어서 room_id를 id로 가진 element가 발견될때까지 대기한다. 
         # 최대 120초 대기 
+        print("autojoin #5")
         try:
             isLoaded = WebDriverWait(self.driver,120).until(
                 EC.presence_of_all_elements_located((By.ID,'room_id'))
@@ -76,28 +119,31 @@ class AutoJoin:
         passwordInput.send_keys(self.password)
         loginButton.click()
 
+        print("autojoin #6")
+        # 기기설정 화면이 나오고 indicator가 사라질때까지 기다린다. 
         # self.driver.implicitly_wait(time_to_wait=20)        
         # 기기설정 화면이 나올때까지 대기한다. 
         try:
             isLoaded = WebDriverWait(self.driver,120).until(
-                EC.presence_of_all_elements_located((By.ID,'fileDown'))
+                EC.presence_of_all_elements_located((By.ID,'lodingEnd'))
             )
         except:
             # 만약에 오류가 생기면 드라이버를 중지하고 1단계를 표시하는 실패 정보를 리턴한다. 
             self.driver.quit()
-            return {"success":"false","step":"2"}        
-        
-        # 기기설정에서 startButton을 검색한다. 팝업등으로 만약 못찾을 경우 잠시 후 다시 시도한다. 
-        # 최종적으로도 못찾을 경우 3단계 정지 정보를 내보낸다. 
+            return {"success":"false","step":"2"}  
+
+        print("autojoin #7")
+        # 로딩이 끝난 상태에서 startButton을 찾는다. 
         try:
-            for i in range(0,3):
-                startButton   = self.driver.find_element("xpath","/html/body/div[2]/div[5]/div[2]/div[1]/div/a[2]")
-                startButton.click() 
-                self.driver.implicitly_wait(10)
-        except Exception as e:
-            print(e)
-
-
+            startButton   = self.driver.find_element("id","setApply")
+            startButton.click() 
+        except:
+            self.driver.quit()
+            return {"success":"false","step":"3"}  
+        
+        return {"success":"true","step":"4"}
+       
+        print("autojoin #8")
         return {"success":"true","step":"4"}
 
 
