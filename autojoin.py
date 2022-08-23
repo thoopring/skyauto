@@ -141,8 +141,6 @@ class AutoJoin:
             self.driver.quit()
             return {"success":"false","step":"3"}  
         
-        return {"success":"true","step":"4"}
-       
         print("autojoin #8")
         return {"success":"true","step":"4"}
 
