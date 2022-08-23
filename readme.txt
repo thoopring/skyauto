@@ -208,3 +208,17 @@
 # when postman(rest api test tool) is used for test, please import SkyAuto.postman_collection.json file in postman application.  
     postman download
     https://www.postman.com/downloads/  
+
+
+# SkyAuto RestAPI 동작 확인 
+    모두 설치 후 
+    https://10.10.10.190:5000/system 를 호출하여 
+    시스템 정보의 json값을 반환하는지 확인. 
+
+    만약 값을 반환하지 않으면 
+    firewall에서 5000번 포트가 허용되는지 확인할 필요가 있음. 
+
+    $ sudo ufw disable
+    혹은 
+    $ sudo ufw allow 5000/tcp
+
