@@ -12,7 +12,20 @@
     $ pip install selenium==4.0.0.
     $ pip install flask
     $ pip install psutil
-    $ pip install webdriver_manager (unzip it and copy ChromeDriver file onto [appPath])
+    $ pip install webdriver_manager 
+        (unzip it and copy chromedriver file onto [appPath])
+
+# folder structure. 
+    drwxrwxr-x 8 skytree skytree     4096  8월 24 02:59 .git
+    -rw-rw-r-- 1 skytree skytree       32  8월 23 21:44 .gitignore
+    drwxrwxr-x 2 skytree skytree     4096  8월 23 21:58 __pycache__
+    -rw-rw-r-- 1 skytree skytree     7592  8월 23 21:49 autojoin.py
+    -rwxr-xr-x 1 skytree skytree 13978368  8월 23 21:49 chromedriver            // webdriver 
+    drwxrwxr-x 2 skytree skytree     4096  8월 24 02:49 postman                 
+    -rw-rw-r-- 1 skytree skytree     6412  8월 24 02:59 readme.txt
+    -rw-rw-r-- 1 skytree skytree     5872  8월 23 21:53 skyauto.py
+    drwxrwxr-x 2 skytree skytree     4096  8월 23 21:47 y4m                     // media folder (y4m, wav files)
+
 
 # copy y4m files to [appPath]/y4m folder from the links below
     video y4m files
