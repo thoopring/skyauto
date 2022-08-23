@@ -1,2 +1,4 @@
 y4m/
+*.y4m
+*.wav
 chromedriver.*
