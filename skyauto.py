@@ -14,7 +14,7 @@ joins = []
 
 @app.route('/')
 def home():
-	return 'SkyAuto Version 1.2'
+	return 'SkyAuto Version 1.3'
 
 @app.route('/system',methods=['get'])
 def processSystem():
@@ -38,36 +38,6 @@ def processSystem():
     }
     retData = {"success":"true","data":systemInfo}
     response = make_response(jsonify(retData),201)
-    return response
-
-@app.route('/autojoin',methods=['post'])
-def processAutoLoadPost():
-    requestJSON = request.get_json()
-    targetURL = requestJSON['url']
-    userNick = requestJSON['userNick']
-    password = requestJSON['password']
-    print(targetURL+" "+userNick+" "+password)
-
-    auto = AutoJoin(targetURL,userNick,password)
-    retData = auto.join()    
-    response = make_response(jsonify(retData),201)
-    if retData['success'] == 'true':
-        joins.append(auto)
-    return response
-
-# 여러 번의 join을 요청하는 경우 
-@app.route('/autojoin',methods=['get'])
-def processAutoLoadGetParameters():
-    targetURL = request.args.get("url")
-    userNick = request.args.get("usernick")
-    password = request.args.get("password")
-    print(targetURL+" "+userNick+" "+password)
-
-    auto = AutoJoin(targetURL,userNick,password)
-    retData = auto.join()    
-    response = make_response(jsonify(retData),201)
-    if retData['success'] == 'true':
-        joins.append(auto)
     return response
 
 @app.route('/listjoins',methods=['get'])
@@ -127,7 +97,24 @@ def killLastJoin():
     retData = {"success":"true"}
     response = make_response(jsonify(retData),201)
     return response
-    
+
+# 한번의 join을 요청하는 경우 
+@app.route('/autojoin',methods=['get'])
+def processAutoLoadGetParameters():
+    targetURL = request.args.get("url")
+    userNick = request.args.get("usernick")
+    password = request.args.get("password")
+    isCameraUsed = extractBoolean(request.args.get("camera"))
+    isMicUsed = extractBoolean(request.args.get("mic"))
+
+    print(targetURL+" "+userNick+" "+password)
+
+    auto = AutoJoin(targetURL,userNick,password,isCameraUsed,isMicUsed)
+    retData = auto.join()    
+    response = make_response(jsonify(retData),201)
+    if retData['success'] == 'true':
+        joins.append(auto)
+    return response   
 
 # 여러 번의 join을 요청하는 경우 
 @app.route('/autojoins',methods=['get'])
@@ -135,6 +122,8 @@ def processAutoLoadsGetParameters():
     targetURL = request.args.get("url")
     userNick = request.args.get("usernick")
     password = request.args.get("password")
+    isCameraUsed = extractBoolean(request.args.get("camera"))
+    isMicUsed = extractBoolean(request.args.get("mic"))
     numberGoal = int(request.args.get("number"))
     number = numberGoal
 
@@ -152,7 +141,7 @@ def processAutoLoadsGetParameters():
     elapsed = 0         # 총 경과 시간 
     while(countSuccess<number and elapsed<timeoutLimit):
         userNick = userNick + str(countSuccess+1)
-        auto = AutoJoin(targetURL,userNick,password)
+        auto = AutoJoin(targetURL,userNick,password,isCameraUsed,isMicUsed)
         # ret = auto.joinSimul()
         ret = auto.join()
         if ret['success'] == 'true':            
@@ -172,6 +161,20 @@ def processAutoLoadsGetParameters():
     response = make_response(jsonify(retData),201)
     return response
     
+
+def extractBoolean(rawValue):
+    ret = True
+    if rawValue==None or rawValue=="":
+        return True            
+    rawValue = rawValue.lower()
+    if rawValue == "true" or rawValue == "on" or rawValue == "1":
+        ret = True
+    elif rawValue == "false" or rawValue == "off" or rawValue == "0":
+        ret = False
+    else:
+        ret = False
+    return ret
+
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0',port=5000)    

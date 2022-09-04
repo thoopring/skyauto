@@ -1,5 +1,5 @@
 # skyepub inc 
-# 18-25.aug 2022
+# 18.aug~5.sep 2022
 # skytree created
 
 # system used in test
@@ -69,16 +69,19 @@
         "success": "true"
     }
 
+*** Updated ***
 /autojoin
-    lauches chrome and automate joining process, returns sucess or fail when it is finished or terminated. 
+    launches chrome and automates joining process, returns sucess or fail when it is finished or terminated. 
     it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
     method get
     params
-        url      : the url of video conference server
-        usernick : user nickname
-        password : room secret password
+        url     : the url of video conference server
+        usernick: user nickname
+        password: room secret password
+        camera  : on (turn camera on),  off (camera off)    default : on 
+        mic     : on (turn mic on),     off (mic off)       default : on  
     example
-        http://127.0.0.1:5000/autoload?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234
+        http://127.0.0.1:5000/autoload?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&camera=on&mic=off 
 
     result
         when failed 
@@ -95,41 +98,18 @@
                 "success": "true"
             }
 
-
-/autojoin 
-    lauches chrome and automate joining process, returns sucess or fail when it is finished or terminated. 
-    it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
-    method post
-    body raw in json
-        {
-            url: the url of video server
-            usernick: the nick of joining publisher 
-            password : room password
-        }
-    result
-        when failed 
-            step 1 failed to load the url itself. 
-            step 2 failed to goto the device setting scene
-            step 3 failed to click on start(시작하기) button 
-            {
-                "step": "3",
-                "success": "false"
-            }
-        when sucess
-            {
-                "step": "4",
-                "success": "true"
-            }
-
+*** Updated ***
 /autojoins
-    lauches chrome and automate joining process number of times, returns success or fail when all joings are finished or terminated. 
-    it uses virtual fake cam to simulate the video conferencing. (no additional virtual cam software needed)
+    launches chrome and automates joining processes till number of joins, returns success or fail when all joings are finished or terminated. 
+    it uses virtual fake cam and mic to simulate the video conferencing. (no additional virtual cam software needed)
     method get
     params
-        url      : the url of video conference server
-        usernick : user nickname
-        password : room secret password
-        number   : number of joins
+        url     : the url of video conference server
+        usernick: user nickname
+        password: room secret password
+        camera  : on (turn camera on),  off (camera off)    default : on 
+        mic     : on (turn mic on),     off (mic off)       default : on  
+        number  : number of joins
     example
         http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5
 
@@ -157,7 +137,6 @@
 
 
 
-*** NEW API ***
 /killlastjoin
     termiates the last join and release it. 
 
@@ -165,7 +144,6 @@
         "success": "true"
     }
 
-*** NEW API ***
 /killlastjoin
     params
         usernick    : the usernick of join to terminate
@@ -186,7 +164,6 @@
             "usernick": "User1"
         }
 
-*** NEW API ***
 /killalljoins
     kill all joins 
 
@@ -198,7 +175,6 @@
             "success": "true"
         }
 
-*** NEW API ***
 /listjoins
     returns the list of joins in json array. 
     example

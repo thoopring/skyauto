@@ -1,3 +1,4 @@
+from curses import KEY_ENTER
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
@@ -8,6 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 import random
 import traceback
 import os
@@ -17,10 +19,12 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 class AutoJoin:
-    def __init__(self,url,userNick,password):
+    def __init__(self,url,userNick,password,isCameraUsed,isMicUsed):
         self.targetURL = url
         self.userNick = userNick
         self.password = password
+        self.isCameraUsed = isCameraUsed
+        self.isMicUsed = isMicUsed
         self.uniqueID = str(uuid.uuid4())
         self.driver = None
 
@@ -107,7 +111,7 @@ class AutoJoin:
         except:
             # 만약에 오류가 생기면 드라이버를 중지하고 1단계를 표시하는 실패 정보를 리턴한다. 
             self.driver.quit()
-            return {"success":"false","step":"1"}
+            return {"success":"false","step":"5"}
 
         # 첫번째 화면에서 입력 요소를 추출 
         userNickInput = self.driver.find_element("xpath","/html/body/div[1]/div[1]/div[1]/div/div[2]/input")
@@ -128,21 +132,44 @@ class AutoJoin:
                 EC.presence_of_all_elements_located((By.ID,'lodingEnd'))
             )
         except:
-            # 만약에 오류가 생기면 드라이버를 중지하고 1단계를 표시하는 실패 정보를 리턴한다. 
+            # 만약에 오류가 생기면 드라이버를 중지하고 단계를 표시하는 실패 정보를 리턴한다. 
             self.driver.quit()
-            return {"success":"false","step":"2"}  
+            return {"success":"false","step":"6"}  
 
         print("autojoin #7")
+
+        # 설정창에서 필요한 경우 카메라와 mic를 off시킨다. 
+        try:
+            print("autojoin #7-1")
+            cameraCheckBox = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="vediooff"]/label')))
+            
+            print("autojoin #7-2")
+            micCheckBox = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mikeoff"]/label')))
+
+            print("autojoin #7-3")
+            if not self.isCameraUsed and not cameraCheckBox.is_selected():     
+                cameraCheckBox.click()
+            
+            print("autojoin #7-4")
+            if not self.isMicUsed and not micCheckBox.is_selected():
+                micCheckBox.click()
+
+        except Exception as e:
+            self.driver.quit()
+            return {"success":"false","step":"7"}  
+
+
+        print("autojoin #8")
         # 로딩이 끝난 상태에서 startButton을 찾는다. 
         try:
             startButton   = self.driver.find_element("id","setApply")
             startButton.click() 
         except:
             self.driver.quit()
-            return {"success":"false","step":"3"}  
+            return {"success":"false","step":"8"}  
         
-        print("autojoin #8")
-        return {"success":"true","step":"4"}
+        print("autojoin #9")
+        return {"success":"true","step":"9"}
 
 
 
