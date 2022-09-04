@@ -111,7 +111,7 @@
         mic     : on (turn mic on),     off (mic off)       default : on  
         number  : number of joins
     example
-        http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5
+        http://127.0.0.1:5000/autojoins?url=https://meet.uplus.co.kr/login?roomNo=3962&usernick=User&password=1234&number=5&camera=on&mic=off 
 
     result
         success:true is returned
